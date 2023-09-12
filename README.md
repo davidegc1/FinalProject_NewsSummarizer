@@ -1,4 +1,4 @@
-# News Article Summarizer 
+# News Article Summarizer 🗞
 
 ## Credits
 The project was developed by:
