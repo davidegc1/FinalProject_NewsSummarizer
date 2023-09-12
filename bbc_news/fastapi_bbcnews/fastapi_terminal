@@ -1,0 +1,852 @@
+Last login: Fri Jun 23 15:15:10 on ttys000
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+(base) macbook-air:Docker student$ docker build . -t fastapi
+[+] Building 5.7s (15/15) FINISHED                                              
+ => [internal] load .dockerignore                                          0.0s
+ => => transferring context: 2B                                            0.0s
+ => [internal] load build definition from Dockerfile                       0.0s
+ => => transferring dockerfile: 602B                                       0.0s
+ => [internal] load metadata for docker.io/continuumio/miniconda3:latest   1.4s
+ => [ 1/10] FROM docker.io/continuumio/miniconda3@sha256:f3637fcc44fac7c2  0.0s
+ => [internal] load build context                                          0.0s
+ => => transferring context: 1.08kB                                        0.0s
+ => CACHED [ 2/10] WORKDIR /home/app                                       0.0s
+ => CACHED [ 3/10] RUN apt-get update -y                                   0.0s
+ => CACHED [ 4/10] RUN apt-get install nano unzip                          0.0s
+ => CACHED [ 5/10] RUN apt-get install -y python3.10                       0.0s
+ => CACHED [ 6/10] RUN apt install curl -y                                 0.0s
+ => CACHED [ 7/10] RUN curl -fsSL https://get.deta.dev/cli.sh | sh         0.0s
+ => CACHED [ 8/10] COPY requirements.txt /dependencies/requirements.txt    0.0s
+ => CACHED [ 9/10] RUN pip install -r /dependencies/requirements.txt       0.0s
+ => [10/10] COPY . /home/app                                               2.9s
+ => exporting to image                                                     1.3s
+ => => exporting layers                                                    1.3s
+ => => writing image sha256:c8e66cb1e99a3f306e1d147218afcb7865d7a86f2bedc  0.0s
+ => => naming to docker.io/library/fastapi                                 0.0s
+(base) macbook-air:Docker student$ docker run -it -v "$(pwd):/home/app" -p 4000:4000 -e PORT=4000 fastapi
+model_name facebook/bart-large-cnn
+Downloading (…)olve/main/vocab.json: 899kB [00:00, 5.37MB/s]
+Downloading (…)olve/main/merges.txt: 456kB [00:00, 2.79MB/s]
+Downloading (…)lve/main/config.json: 1.58kB [00:00, 4.23MB/s]
+tokenizer BartTokenizer(name_or_path='facebook/bart-large-cnn', vocab_size=50265, model_max_length=1024, is_fast=False, padding_side='right', truncation_side='right', special_tokens={'bos_token': AddedToken("<s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'eos_token': AddedToken("</s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'unk_token': AddedToken("<unk>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'sep_token': AddedToken("</s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'pad_token': AddedToken("<pad>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'cls_token': AddedToken("<s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'mask_token': AddedToken("<mask>", rstrip=False, lstrip=True, single_word=False, normalized=True)}, clean_up_tokenization_spaces=True)
+Downloading pytorch_model.bin: 100%|███████| 1.63G/1.63G [00:47<00:00, 34.4MB/s]
+Downloading (…)neration_config.json: 100%|█████| 363/363 [00:00<00:00, 19.1kB/s]
+model BartForConditionalGeneration(
+  (model): BartModel(
+    (shared): Embedding(50264, 1024, padding_idx=1)
+    (encoder): BartEncoder(
+      (embed_tokens): Embedding(50264, 1024, padding_idx=1)
+      (embed_positions): BartLearnedPositionalEmbedding(1026, 1024)
+      (layers): ModuleList(
+        (0-11): 12 x BartEncoderLayer(
+          (self_attn): BartAttention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (self_attn_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (activation_fn): GELUActivation()
+          (fc1): Linear(in_features=1024, out_features=4096, bias=True)
+          (fc2): Linear(in_features=4096, out_features=1024, bias=True)
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (layernorm_embedding): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    )
+    (decoder): BartDecoder(
+      (embed_tokens): Embedding(50264, 1024, padding_idx=1)
+      (embed_positions): BartLearnedPositionalEmbedding(1026, 1024)
+      (layers): ModuleList(
+        (0-11): 12 x BartDecoderLayer(
+          (self_attn): BartAttention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (activation_fn): GELUActivation()
+          (self_attn_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (encoder_attn): BartAttention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (encoder_attn_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (fc1): Linear(in_features=1024, out_features=4096, bias=True)
+          (fc2): Linear(in_features=4096, out_features=1024, bias=True)
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (layernorm_embedding): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    )
+  )
+  (lm_head): Linear(in_features=1024, out_features=50264, bias=False)
+)
+ERROR:    Error loading ASGI app. Could not import module "app.__main__".
+(base) macbook-air:Docker student$ docker run -it -v "$(pwd):/home/app" -p 4000:4000 -e PORT=4000 fastapi
+model_name facebook/bart-large-cnn
+Downloading (…)olve/main/vocab.json: 899kB [00:00, 9.74MB/s]
+Downloading (…)olve/main/merges.txt: 456kB [00:00, 5.59MB/s]
+Downloading (…)lve/main/config.json: 1.58kB [00:00, 2.64MB/s]
+tokenizer BartTokenizer(name_or_path='facebook/bart-large-cnn', vocab_size=50265, model_max_length=1024, is_fast=False, padding_side='right', truncation_side='right', special_tokens={'bos_token': AddedToken("<s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'eos_token': AddedToken("</s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'unk_token': AddedToken("<unk>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'sep_token': AddedToken("</s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'pad_token': AddedToken("<pad>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'cls_token': AddedToken("<s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'mask_token': AddedToken("<mask>", rstrip=False, lstrip=True, single_word=False, normalized=True)}, clean_up_tokenization_spaces=True)
+Downloading pytorch_model.bin:  45%|███▌    | 724M/1.63G [00:21<00:31, 28.9MB/s]Downloading pytorch_model.bin: 100%|███████| 1.63G/1.63G [00:46<00:00, 35.0MB/s]
+Downloading (…)neration_config.json: 100%|██████| 363/363 [00:00<00:00, 417kB/s]
+model BartForConditionalGeneration(
+  (model): BartModel(
+    (shared): Embedding(50264, 1024, padding_idx=1)
+    (encoder): BartEncoder(
+      (embed_tokens): Embedding(50264, 1024, padding_idx=1)
+      (embed_positions): BartLearnedPositionalEmbedding(1026, 1024)
+      (layers): ModuleList(
+        (0-11): 12 x BartEncoderLayer(
+          (self_attn): BartAttention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (self_attn_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (activation_fn): GELUActivation()
+          (fc1): Linear(in_features=1024, out_features=4096, bias=True)
+          (fc2): Linear(in_features=4096, out_features=1024, bias=True)
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (layernorm_embedding): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    )
+    (decoder): BartDecoder(
+      (embed_tokens): Embedding(50264, 1024, padding_idx=1)
+      (embed_positions): BartLearnedPositionalEmbedding(1026, 1024)
+      (layers): ModuleList(
+        (0-11): 12 x BartDecoderLayer(
+          (self_attn): BartAttention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (activation_fn): GELUActivation()
+          (self_attn_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (encoder_attn): BartAttention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (encoder_attn_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (fc1): Linear(in_features=1024, out_features=4096, bias=True)
+          (fc2): Linear(in_features=4096, out_features=1024, bias=True)
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (layernorm_embedding): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    )
+  )
+  (lm_head): Linear(in_features=1024, out_features=50264, bias=False)
+)
+ERROR:    Error loading ASGI app. Could not import module "app.__main__".
+(base) macbook-air:Docker student$ docker build . -t fastapi
+[+] Building 5.3s (15/15) FINISHED                                              
+ => [internal] load build definition from Dockerfile                       0.0s
+ => => transferring dockerfile: 602B                                       0.0s
+ => [internal] load .dockerignore                                          0.0s
+ => => transferring context: 2B                                            0.0s
+ => [internal] load metadata for docker.io/continuumio/miniconda3:latest   1.4s
+ => [ 1/10] FROM docker.io/continuumio/miniconda3@sha256:f3637fcc44fac7c2  0.0s
+ => [internal] load build context                                          0.0s
+ => => transferring context: 1.08kB                                        0.0s
+ => CACHED [ 2/10] WORKDIR /home/app                                       0.0s
+ => CACHED [ 3/10] RUN apt-get update -y                                   0.0s
+ => CACHED [ 4/10] RUN apt-get install nano unzip                          0.0s
+ => CACHED [ 5/10] RUN apt-get install -y python3.10                       0.0s
+ => CACHED [ 6/10] RUN apt install curl -y                                 0.0s
+ => CACHED [ 7/10] RUN curl -fsSL https://get.deta.dev/cli.sh | sh         0.0s
+ => CACHED [ 8/10] COPY requirements.txt /dependencies/requirements.txt    0.0s
+ => CACHED [ 9/10] RUN pip install -r /dependencies/requirements.txt       0.0s
+ => [10/10] COPY . /home/app                                               2.4s
+ => exporting to image                                                     1.3s
+ => => exporting layers                                                    1.3s
+ => => writing image sha256:543775b42445b77a35f59579eb1680a28d735be7be7d0  0.0s
+ => => naming to docker.io/library/fastapi                                 0.0s
+(base) macbook-air:Docker student$ docker run -it -v "$(pwd):/home/app" -p 4000:4000 -e PORT=4000 fastapi
+[2023-06-23 13:26:45 +0000] [7] [INFO] Starting gunicorn 20.1.0
+[2023-06-23 13:26:45 +0000] [7] [INFO] Listening at: http://0.0.0.0:4000 (7)
+[2023-06-23 13:26:45 +0000] [7] [INFO] Using worker: uvicorn.workers.UvicornWorker
+[2023-06-23 13:26:45 +0000] [8] [INFO] Booting worker with pid: 8
+model_name facebook/bart-large-cnn
+Downloading (…)olve/main/vocab.json: 899kB [00:00, 3.55MB/s]
+Downloading (…)olve/main/merges.txt: 456kB [00:00, 2.79MB/s]
+Downloading (…)lve/main/config.json: 1.58kB [00:00, 5.65MB/s]
+tokenizer BartTokenizer(name_or_path='facebook/bart-large-cnn', vocab_size=50265, model_max_length=1024, is_fast=False, padding_side='right', truncation_side='right', special_tokens={'bos_token': AddedToken("<s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'eos_token': AddedToken("</s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'unk_token': AddedToken("<unk>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'sep_token': AddedToken("</s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'pad_token': AddedToken("<pad>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'cls_token': AddedToken("<s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'mask_token': AddedToken("<mask>", rstrip=False, lstrip=True, single_word=False, normalized=True)}, clean_up_tokenization_spaces=True)
+Downloading pytorch_model.bin:  37%|██▉     | 608M/1.63G [00:23<00:38, 26.3MB/s][2023-06-23 13:27:15 +0000] [7] [CRITICAL] WORKER TIMEOUT (pid:8)
+[2023-06-23 13:27:17 +0000] [7] [WARNING] Worker with pid 8 was terminated due to signal 6
+[2023-06-23 13:27:17 +0000] [13] [INFO] Booting worker with pid: 13
+model_name facebook/bart-large-cnn
+tokenizer BartTokenizer(name_or_path='facebook/bart-large-cnn', vocab_size=50265, model_max_length=1024, is_fast=False, padding_side='right', truncation_side='right', special_tokens={'bos_token': AddedToken("<s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'eos_token': AddedToken("</s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'unk_token': AddedToken("<unk>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'sep_token': AddedToken("</s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'pad_token': AddedToken("<pad>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'cls_token': AddedToken("<s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'mask_token': AddedToken("<mask>", rstrip=False, lstrip=True, single_word=False, normalized=True)}, clean_up_tokenization_spaces=True)
+Downloading pytorch_model.bin:  37%|██▉     | 598M/1.63G [00:24<00:35, 28.6MB/s][2023-06-23 13:27:47 +0000] [7] [CRITICAL] WORKER TIMEOUT (pid:13)
+[2023-06-23 13:27:47 +0000] [7] [WARNING] Worker with pid 13 was terminated due to signal 6
+[2023-06-23 13:27:47 +0000] [18] [INFO] Booting worker with pid: 18
+model_name facebook/bart-large-cnn
+tokenizer BartTokenizer(name_or_path='facebook/bart-large-cnn', vocab_size=50265, model_max_length=1024, is_fast=False, padding_side='right', truncation_side='right', special_tokens={'bos_token': AddedToken("<s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'eos_token': AddedToken("</s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'unk_token': AddedToken("<unk>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'sep_token': AddedToken("</s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'pad_token': AddedToken("<pad>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'cls_token': AddedToken("<s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'mask_token': AddedToken("<mask>", rstrip=False, lstrip=True, single_word=False, normalized=True)}, clean_up_tokenization_spaces=True)
+Downloading pytorch_model.bin:   3%|▏      | 41.9M/1.63G [00:01<00:54, 29.0MB/s]^C[2023-06-23 13:27:52 +0000] [7] [INFO] Handling signal: int
+[2023-06-23 13:27:52 +0000] [7] [WARNING] Worker with pid 18 was terminated due to signal 2
+[2023-06-23 13:27:52 +0000] [7] [INFO] Shutting down: Master
+(base) macbook-air:Docker student$ docker build . -t fastapi
+[+] Building 15.5s (15/15) FINISHED                                             
+ => [internal] load build definition from Dockerfile                       0.1s
+ => => transferring dockerfile: 593B                                       0.0s
+ => [internal] load .dockerignore                                          0.0s
+ => => transferring context: 2B                                            0.0s
+ => [internal] load metadata for docker.io/continuumio/miniconda3:latest   1.1s
+ => [ 1/10] FROM docker.io/continuumio/miniconda3@sha256:f3637fcc44fac7c2  0.0s
+ => [internal] load build context                                          0.1s
+ => => transferring context: 1.07kB                                        0.0s
+ => CACHED [ 2/10] WORKDIR /home/app                                       0.0s
+ => CACHED [ 3/10] RUN apt-get update -y                                   0.0s
+ => CACHED [ 4/10] RUN apt-get install nano unzip                          0.0s
+ => CACHED [ 5/10] RUN apt-get install -y python3.10                       0.0s
+ => CACHED [ 6/10] RUN apt install curl -y                                 0.0s
+ => CACHED [ 7/10] RUN curl -fsSL https://get.deta.dev/cli.sh | sh         0.0s
+ => CACHED [ 8/10] COPY requirements.txt /dependencies/requirements.txt    0.0s
+ => CACHED [ 9/10] RUN pip install -r /dependencies/requirements.txt       0.0s
+ => [10/10] COPY . /home/app                                               7.7s
+ => exporting to image                                                     6.2s
+ => => exporting layers                                                    6.1s
+ => => writing image sha256:9d60ad9ea893b5d2cd4c1e67f20ba49b293a1ac2d5874  0.0s
+ => => naming to docker.io/library/fastapi                                 0.0s
+(base) macbook-air:Docker student$ docker run -it -v "$(pwd):/home/app" -p 4000:4000 -e PORT=4000 fastapi
+model_name facebook/bart-large-cnn
+Downloading (…)olve/main/vocab.json: 899kB [00:00, 3.87MB/s]
+Downloading (…)olve/main/merges.txt: 456kB [00:00, 8.46MB/s]
+Downloading (…)lve/main/config.json: 1.58kB [00:00, 659kB/s]
+tokenizer BartTokenizer(name_or_path='facebook/bart-large-cnn', vocab_size=50265, model_max_length=1024, is_fast=False, padding_side='right', truncation_side='right', special_tokens={'bos_token': AddedToken("<s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'eos_token': AddedToken("</s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'unk_token': AddedToken("<unk>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'sep_token': AddedToken("</s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'pad_token': AddedToken("<pad>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'cls_token': AddedToken("<s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'mask_token': AddedToken("<mask>", rstrip=False, lstrip=True, single_word=False, normalized=True)}, clean_up_tokenization_spaces=True)
+Downloading pytorch_model.bin: 100%|████████████████████████| 1.63G/1.63G [00:50<00:00, 32.1MB/s]
+Downloading (…)neration_config.json: 100%|██████████████████████| 363/363 [00:00<00:00, 19.4kB/s]
+model BartForConditionalGeneration(
+  (model): BartModel(
+    (shared): Embedding(50264, 1024, padding_idx=1)
+    (encoder): BartEncoder(
+      (embed_tokens): Embedding(50264, 1024, padding_idx=1)
+      (embed_positions): BartLearnedPositionalEmbedding(1026, 1024)
+      (layers): ModuleList(
+        (0-11): 12 x BartEncoderLayer(
+          (self_attn): BartAttention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (self_attn_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (activation_fn): GELUActivation()
+          (fc1): Linear(in_features=1024, out_features=4096, bias=True)
+          (fc2): Linear(in_features=4096, out_features=1024, bias=True)
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (layernorm_embedding): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    )
+    (decoder): BartDecoder(
+      (embed_tokens): Embedding(50264, 1024, padding_idx=1)
+      (embed_positions): BartLearnedPositionalEmbedding(1026, 1024)
+      (layers): ModuleList(
+        (0-11): 12 x BartDecoderLayer(
+          (self_attn): BartAttention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (activation_fn): GELUActivation()
+          (self_attn_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (encoder_attn): BartAttention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (encoder_attn_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (fc1): Linear(in_features=1024, out_features=4096, bias=True)
+          (fc2): Linear(in_features=4096, out_features=1024, bias=True)
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (layernorm_embedding): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    )
+  )
+  (lm_head): Linear(in_features=1024, out_features=50264, bias=False)
+)
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)
+^[[A^CINFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [1]
+^C^C(base) macbook-air:Docker student$ docker run -it -v "$(pwd):/home/app" -p 4000:8080 PORT=4000 fastapi
+docker: Invalid containerPort: 40008080.
+See 'docker run --help'.
+(base) macbook-air:Docker student$ docker run -it -v "$(pwd):/home/app" -p 4000:8080 fastapi
+model_name facebook/bart-large-cnn
+Downloading (…)olve/main/vocab.json: 899kB [00:00, 8.09MB/s]
+Downloading (…)olve/main/merges.txt: 456kB [00:00, 4.20MB/s]
+Downloading (…)lve/main/config.json: 1.58kB [00:00, 3.61MB/s]
+tokenizer BartTokenizer(name_or_path='facebook/bart-large-cnn', vocab_size=50265, model_max_length=1024, is_fast=False, padding_side='right', truncation_side='right', special_tokens={'bos_token': AddedToken("<s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'eos_token': AddedToken("</s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'unk_token': AddedToken("<unk>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'sep_token': AddedToken("</s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'pad_token': AddedToken("<pad>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'cls_token': AddedToken("<s>", rstrip=False, lstrip=False, single_word=False, normalized=True), 'mask_token': AddedToken("<mask>", rstrip=False, lstrip=True, single_word=False, normalized=True)}, clean_up_tokenization_spaces=True)
+Downloading pytorch_model.bin: 100%|████████████████████████| 1.63G/1.63G [00:49<00:00, 32.9MB/s]
+Downloading (…)neration_config.json: 100%|███████████████████████| 363/363 [00:00<00:00, 180kB/s]
+model BartForConditionalGeneration(
+  (model): BartModel(
+    (shared): Embedding(50264, 1024, padding_idx=1)
+    (encoder): BartEncoder(
+      (embed_tokens): Embedding(50264, 1024, padding_idx=1)
+      (embed_positions): BartLearnedPositionalEmbedding(1026, 1024)
+      (layers): ModuleList(
+        (0-11): 12 x BartEncoderLayer(
+          (self_attn): BartAttention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (self_attn_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (activation_fn): GELUActivation()
+          (fc1): Linear(in_features=1024, out_features=4096, bias=True)
+          (fc2): Linear(in_features=4096, out_features=1024, bias=True)
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (layernorm_embedding): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    )
+    (decoder): BartDecoder(
+      (embed_tokens): Embedding(50264, 1024, padding_idx=1)
+      (embed_positions): BartLearnedPositionalEmbedding(1026, 1024)
+      (layers): ModuleList(
+        (0-11): 12 x BartDecoderLayer(
+          (self_attn): BartAttention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (activation_fn): GELUActivation()
+          (self_attn_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (encoder_attn): BartAttention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (encoder_attn_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (fc1): Linear(in_features=1024, out_features=4096, bias=True)
+          (fc2): Linear(in_features=4096, out_features=1024, bias=True)
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (layernorm_embedding): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+    )
+  )
+  (lm_head): Linear(in_features=1024, out_features=50264, bias=False)
+)
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)
+INFO:     172.17.0.1:34034 - "GET / HTTP/1.1" 404 Not Found
+INFO:     172.17.0.1:34034 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     172.17.0.1:51352 - "GET /docs HTTP/1.1" 200 OK
+INFO:     172.17.0.1:51352 - "GET /openapi.json HTTP/1.1" 200 OK
+text string
+preprocessing {'input_ids': tensor([[    0, 20951,     2]]), 'attention_mask': tensor([[1, 1, 1]])}
+summary_ids tensor([[    2,     0, 20951,     4, 20951,    16,    10,  6755,     9,  1617,
+           341,     7,  6190,    41,  7626,     4, 26602,     4, 20951,    64,
+            28,   341,     7,  9115,     7,   143,  7626,    50,  7626,    11,
+             5,   232,     4,  6755,     4, 20951,   189,    67,  9115,     7,
+            10,   278,     9,  1617,     6,   215,    25,    22, 20951,  1297,
+            22, 20951,   113,    50,    22, 20951,     9,  1617,   113,     2]])
+summary string.string is a string of words used to describe an object. String.string can be used to refer to any object or object in the world. string.string may also refer to a set of words, such as "string", "string" or "string of words"
+INFO:     172.17.0.1:33172 - "POST /predict HTTP/1.1" 200 OK
+text string
+preprocessing {'input_ids': tensor([[    0, 20951,     2]]), 'attention_mask': tensor([[1, 1, 1]])}
+summary_ids tensor([[    2,     0, 20951,     4, 20951,    16,    10,  6755,     9,  1617,
+           341,     7,  6190,    41,  7626,     4, 26602,     4, 20951,    64,
+            28,   341,     7,  9115,     7,   143,  7626,    50,  7626,    11,
+             5,   232,     4,  6755,     4, 20951,   189,    67,  9115,     7,
+            10,   278,     9,  1617,     6,   215,    25,    22, 20951,  1297,
+            22, 20951,   113,    50,    22, 20951,     9,  1617,   113,     2]])
+summary string.string is a string of words used to describe an object. String.string can be used to refer to any object or object in the world. string.string may also refer to a set of words, such as "string", "string" or "string of words"
+INFO:     172.17.0.1:49216 - "POST /predict HTTP/1.1" 200 OK
+INFO:     172.17.0.1:37046 - "POST / HTTP/1.1" 404 Not Found
+INFO:     172.17.0.1:41446 - "POST / HTTP/1.1" 404 Not Found
+INFO:     172.17.0.1:60522 - "POST / HTTP/1.1" 404 Not Found
+INFO:     172.17.0.1:41486 - "POST / HTTP/1.1" 404 Not Found
+INFO:     172.17.0.1:57564 - "POST / HTTP/1.1" 404 Not Found
+INFO:     172.17.0.1:52566 - "POST /predict HTTP/1.1" 422 Unprocessable Entity
+INFO:     172.17.0.1:49156 - "POST /predict HTTP/1.1" 422 Unprocessable Entity
+INFO:     172.17.0.1:35818 - "POST /predict HTTP/1.1" 422 Unprocessable Entity
+text A Justice Department spokesman stood by Garland’s previous comments, and the lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+
+The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden, which this week led to a proposed plea agreement on two misdemeanor charges that will probably allow him to avoid jail time. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea, which must be approved by a judge.
+preprocessing {'input_ids': tensor([[    0,   250,  1659,   641,  1565,  3359,    30, 22280,    17,    27,
+            29,   986,  1450,     6,     8,     5,   483,  3661,    15,     5,
+           446,  1540,    26,     5,  1857,   197,    45,    33,    57,   703,
+          3271,   150,  2648,    32,   202, 23371,   106,     4, 50118, 50118,
+           133, 12348,   818,  1819,    40,  2423,  3633,     9,     5,  1659,
+           641,    17,    27,    29,   292,    12,   180,   803,     9,  7126,
+         15478,     6,    61,    42,   186,   669,     7,    10,  1850,  6221,
+          1288,    15,    80, 13811,  1103,    14,    40,  1153,  1157,   123,
+             7,  1877,  2878,    86,     4, 15478,    16,   528,    11,   752,
+           461,    11, 16971,     6,  3011,   482,    15,   550,   973,     7,
+          2914,    39,  2181,  6221,     6,    61,   531,    28,  2033,    30,
+            10,  1679,     4,     2]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])}
+summary_ids tensor([[    2,     0,   133, 12348,   818,  1819,    40,  2423,  3633,     9,
+             5,  1659,   641,    17,    27,    29,   292,    12,   180,   803,
+             9,  7126, 15478,     4, 15478,    16,   528,    11,   752,   461,
+            11, 16971,     6,  3011,   482,    15,   550,   973,     7,  2914,
+            39,  2181,  6221,     4,    20,   483,  3661,    15,     5,   446,
+          1540,    26,     5,  1857,   197,    45,    33,    57,   703,  3271,
+           150,  2648,    32,   202, 23371,   106,     4,     2]])
+summary The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea. The lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+INFO:     172.17.0.1:56952 - "POST /predict HTTP/1.1" 200 OK
+text string
+preprocessing {'input_ids': tensor([[    0, 20951,     2]]), 'attention_mask': tensor([[1, 1, 1]])}
+summary_ids tensor([[    2,     0, 20951,     4, 20951,    16,    10,  6755,     9,  1617,
+           341,     7,  6190,    41,  7626,     4, 26602,     4, 20951,    64,
+            28,   341,     7,  9115,     7,   143,  7626,    50,  7626,    11,
+             5,   232,     4,  6755,     4, 20951,   189,    67,  9115,     7,
+            10,   278,     9,  1617,     6,   215,    25,    22, 20951,  1297,
+            22, 20951,   113,    50,    22, 20951,     9,  1617,   113,     2]])
+summary string.string is a string of words used to describe an object. String.string can be used to refer to any object or object in the world. string.string may also refer to a set of words, such as "string", "string" or "string of words"
+INFO:     172.17.0.1:48110 - "POST /predict HTTP/1.1" 200 OK
+INFO:     172.17.0.1:38968 - "GET /docs HTTP/1.1" 200 OK
+INFO:     172.17.0.1:38968 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     172.17.0.1:34176 - "POST /predict HTTP/1.1" 422 Unprocessable Entity
+text A Justice Department spokesman stood by Garland’s previous comments, and the lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+
+The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden, which this week led to a proposed plea agreement on two misdemeanor charges that will probably allow him to avoid jail time. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea, which must be approved by a judge.
+preprocessing {'input_ids': tensor([[    0,   250,  1659,   641,  1565,  3359,    30, 22280,    17,    27,
+            29,   986,  1450,     6,     8,     5,   483,  3661,    15,     5,
+           446,  1540,    26,     5,  1857,   197,    45,    33,    57,   703,
+          3271,   150,  2648,    32,   202, 23371,   106,     4, 50118, 50118,
+           133, 12348,   818,  1819,    40,  2423,  3633,     9,     5,  1659,
+           641,    17,    27,    29,   292,    12,   180,   803,     9,  7126,
+         15478,     6,    61,    42,   186,   669,     7,    10,  1850,  6221,
+          1288,    15,    80, 13811,  1103,    14,    40,  1153,  1157,   123,
+             7,  1877,  2878,    86,     4, 15478,    16,   528,    11,   752,
+           461,    11, 16971,     6,  3011,   482,    15,   550,   973,     7,
+          2914,    39,  2181,  6221,     6,    61,   531,    28,  2033,    30,
+            10,  1679,     4,     2]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])}
+summary_ids tensor([[    2,     0,   133, 12348,   818,  1819,    40,  2423,  3633,     9,
+             5,  1659,   641,    17,    27,    29,   292,    12,   180,   803,
+             9,  7126, 15478,     4, 15478,    16,   528,    11,   752,   461,
+            11, 16971,     6,  3011,   482,    15,   550,   973,     7,  2914,
+            39,  2181,  6221,     4,    20,   483,  3661,    15,     5,   446,
+          1540,    26,     5,  1857,   197,    45,    33,    57,   703,  3271,
+           150,  2648,    32,   202, 23371,   106,     4,     2]])
+summary The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea. The lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+INFO:     172.17.0.1:45984 - "POST /predict HTTP/1.1" 200 OK
+text A Justice Department spokesman stood by Garland’s previous comments, and the lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+
+The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden, which this week led to a proposed plea agreement on two misdemeanor charges that will probably allow him to avoid jail time. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea, which must be approved by a judge.
+preprocessing {'input_ids': tensor([[    0,   250,  1659,   641,  1565,  3359,    30, 22280,    17,    27,
+            29,   986,  1450,     6,     8,     5,   483,  3661,    15,     5,
+           446,  1540,    26,     5,  1857,   197,    45,    33,    57,   703,
+          3271,   150,  2648,    32,   202, 23371,   106,     4, 50118, 50118,
+           133, 12348,   818,  1819,    40,  2423,  3633,     9,     5,  1659,
+           641,    17,    27,    29,   292,    12,   180,   803,     9,  7126,
+         15478,     6,    61,    42,   186,   669,     7,    10,  1850,  6221,
+          1288,    15,    80, 13811,  1103,    14,    40,  1153,  1157,   123,
+             7,  1877,  2878,    86,     4, 15478,    16,   528,    11,   752,
+           461,    11, 16971,     6,  3011,   482,    15,   550,   973,     7,
+          2914,    39,  2181,  6221,     6,    61,   531,    28,  2033,    30,
+            10,  1679,     4,     2]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])}
+summary_ids tensor([[    2,     0,   133, 12348,   818,  1819,    40,  2423,  3633,     9,
+             5,  1659,   641,    17,    27,    29,   292,    12,   180,   803,
+             9,  7126, 15478,     4, 15478,    16,   528,    11,   752,   461,
+            11, 16971,     6,  3011,   482,    15,   550,   973,     7,  2914,
+            39,  2181,  6221,     4,    20,   483,  3661,    15,     5,   446,
+          1540,    26,     5,  1857,   197,    45,    33,    57,   703,  3271,
+           150,  2648,    32,   202, 23371,   106,     4,     2]])
+summary The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea. The lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+INFO:     172.17.0.1:44454 - "POST /predict HTTP/1.1" 200 OK
+text A Justice Department spokesman stood by Garland’s previous comments, and the lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+
+The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden, which this week led to a proposed plea agreement on two misdemeanor charges that will probably allow him to avoid jail time. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea, which must be approved by a judge.
+preprocessing {'input_ids': tensor([[    0,   250,  1659,   641,  1565,  3359,    30, 22280,    17,    27,
+            29,   986,  1450,     6,     8,     5,   483,  3661,    15,     5,
+           446,  1540,    26,     5,  1857,   197,    45,    33,    57,   703,
+          3271,   150,  2648,    32,   202, 23371,   106,     4, 50118, 50118,
+           133, 12348,   818,  1819,    40,  2423,  3633,     9,     5,  1659,
+           641,    17,    27,    29,   292,    12,   180,   803,     9,  7126,
+         15478,     6,    61,    42,   186,   669,     7,    10,  1850,  6221,
+          1288,    15,    80, 13811,  1103,    14,    40,  1153,  1157,   123,
+             7,  1877,  2878,    86,     4, 15478,    16,   528,    11,   752,
+           461,    11, 16971,     6,  3011,   482,    15,   550,   973,     7,
+          2914,    39,  2181,  6221,     6,    61,   531,    28,  2033,    30,
+            10,  1679,     4,     2]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])}
+summary_ids tensor([[    2,     0,   133, 12348,   818,  1819,    40,  2423,  3633,     9,
+             5,  1659,   641,    17,    27,    29,   292,    12,   180,   803,
+             9,  7126, 15478,     4, 15478,    16,   528,    11,   752,   461,
+            11, 16971,     6,  3011,   482,    15,   550,   973,     7,  2914,
+            39,  2181,  6221,     4,    20,   483,  3661,    15,     5,   446,
+          1540,    26,     5,  1857,   197,    45,    33,    57,   703,  3271,
+           150,  2648,    32,   202, 23371,   106,     4,     2]])
+summary The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea. The lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+INFO:     172.17.0.1:50332 - "POST /predict HTTP/1.1" 200 OK
+text A Justice Department spokesman stood by Garland’s previous comments, and the lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+
+The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden, which this week led to a proposed plea agreement on two misdemeanor charges that will probably allow him to avoid jail time. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea, which must be approved by a judge.
+preprocessing {'input_ids': tensor([[    0,   250,  1659,   641,  1565,  3359,    30, 22280,    17,    27,
+            29,   986,  1450,     6,     8,     5,   483,  3661,    15,     5,
+           446,  1540,    26,     5,  1857,   197,    45,    33,    57,   703,
+          3271,   150,  2648,    32,   202, 23371,   106,     4, 50118, 50118,
+           133, 12348,   818,  1819,    40,  2423,  3633,     9,     5,  1659,
+           641,    17,    27,    29,   292,    12,   180,   803,     9,  7126,
+         15478,     6,    61,    42,   186,   669,     7,    10,  1850,  6221,
+          1288,    15,    80, 13811,  1103,    14,    40,  1153,  1157,   123,
+             7,  1877,  2878,    86,     4, 15478,    16,   528,    11,   752,
+           461,    11, 16971,     6,  3011,   482,    15,   550,   973,     7,
+          2914,    39,  2181,  6221,     6,    61,   531,    28,  2033,    30,
+            10,  1679,     4,     2]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])}
+summary_ids tensor([[    2,     0,   133, 12348,   818,  1819,    40,  2423,  3633,     9,
+             5,  1659,   641,    17,    27,    29,   292,    12,   180,   803,
+             9,  7126, 15478,     4, 15478,    16,   528,    11,   752,   461,
+            11, 16971,     6,  3011,   482,    15,   550,   973,     7,  2914,
+            39,  2181,  6221,     4,    20,   483,  3661,    15,     5,   446,
+          1540,    26,     5,  1857,   197,    45,    33,    57,   703,  3271,
+           150,  2648,    32,   202, 23371,   106,     4,     2]])
+summary The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea. The lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+INFO:     172.17.0.1:50814 - "POST /predict HTTP/1.1" 200 OK
+text A Justice Department spokesman stood by Garland’s previous comments, and the lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+
+The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden, which this week led to a proposed plea agreement on two misdemeanor charges that will probably allow him to avoid jail time. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea, which must be approved by a judge.
+preprocessing {'input_ids': tensor([[    0,   250,  1659,   641,  1565,  3359,    30, 22280,    17,    27,
+            29,   986,  1450,     6,     8,     5,   483,  3661,    15,     5,
+           446,  1540,    26,     5,  1857,   197,    45,    33,    57,   703,
+          3271,   150,  2648,    32,   202, 23371,   106,     4, 50118, 50118,
+           133, 12348,   818,  1819,    40,  2423,  3633,     9,     5,  1659,
+           641,    17,    27,    29,   292,    12,   180,   803,     9,  7126,
+         15478,     6,    61,    42,   186,   669,     7,    10,  1850,  6221,
+          1288,    15,    80, 13811,  1103,    14,    40,  1153,  1157,   123,
+             7,  1877,  2878,    86,     4, 15478,    16,   528,    11,   752,
+           461,    11, 16971,     6,  3011,   482,    15,   550,   973,     7,
+          2914,    39,  2181,  6221,     6,    61,   531,    28,  2033,    30,
+            10,  1679,     4,     2]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])}
+summary_ids tensor([[    2,     0,   133, 12348,   818,  1819,    40,  2423,  3633,     9,
+             5,  1659,   641,    17,    27,    29,   292,    12,   180,   803,
+             9,  7126, 15478,     4, 15478,    16,   528,    11,   752,   461,
+            11, 16971,     6,  3011,   482,    15,   550,   973,     7,  2914,
+            39,  2181,  6221,     4,    20,   483,  3661,    15,     5,   446,
+          1540,    26,     5,  1857,   197,    45,    33,    57,   703,  3271,
+           150,  2648,    32,   202, 23371,   106,     4,     2]])
+summary The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea. The lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+INFO:     172.17.0.1:60670 - "POST /predict HTTP/1.1" 200 OK
+text A Justice Department spokesman stood by Garland’s previous comments, and the lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+
+The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden, which this week led to a proposed plea agreement on two misdemeanor charges that will probably allow him to avoid jail time. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea, which must be approved by a judge.
+preprocessing {'input_ids': tensor([[    0,   250,  1659,   641,  1565,  3359,    30, 22280,    17,    27,
+            29,   986,  1450,     6,     8,     5,   483,  3661,    15,     5,
+           446,  1540,    26,     5,  1857,   197,    45,    33,    57,   703,
+          3271,   150,  2648,    32,   202, 23371,   106,     4, 50118, 50118,
+           133, 12348,   818,  1819,    40,  2423,  3633,     9,     5,  1659,
+           641,    17,    27,    29,   292,    12,   180,   803,     9,  7126,
+         15478,     6,    61,    42,   186,   669,     7,    10,  1850,  6221,
+          1288,    15,    80, 13811,  1103,    14,    40,  1153,  1157,   123,
+             7,  1877,  2878,    86,     4, 15478,    16,   528,    11,   752,
+           461,    11, 16971,     6,  3011,   482,    15,   550,   973,     7,
+          2914,    39,  2181,  6221,     6,    61,   531,    28,  2033,    30,
+            10,  1679,     4,     2]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])}
+summary_ids tensor([[    2,     0,   133, 12348,   818,  1819,    40,  2423,  3633,     9,
+             5,  1659,   641,    17,    27,    29,   292,    12,   180,   803,
+             9,  7126, 15478,     4, 15478,    16,   528,    11,   752,   461,
+            11, 16971,     6,  3011,   482,    15,   550,   973,     7,  2914,
+            39,  2181,  6221,     4,    20,   483,  3661,    15,     5,   446,
+          1540,    26,     5,  1857,   197,    45,    33,    57,   703,  3271,
+           150,  2648,    32,   202, 23371,   106,     4,     2]])
+summary The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea. The lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+INFO:     172.17.0.1:43748 - "POST /predict HTTP/1.1" 200 OK
+text A Justice Department spokesman stood by Garland’s previous comments, and the lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+
+The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden, which this week led to a proposed plea agreement on two misdemeanor charges that will probably allow him to avoid jail time. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea, which must be approved by a judge.
+preprocessing {'input_ids': tensor([[    0,   250,  1659,   641,  1565,  3359,    30, 22280,    17,    27,
+            29,   986,  1450,     6,     8,     5,   483,  3661,    15,     5,
+           446,  1540,    26,     5,  1857,   197,    45,    33,    57,   703,
+          3271,   150,  2648,    32,   202, 23371,   106,     4, 50118, 50118,
+           133, 12348,   818,  1819,    40,  2423,  3633,     9,     5,  1659,
+           641,    17,    27,    29,   292,    12,   180,   803,     9,  7126,
+         15478,     6,    61,    42,   186,   669,     7,    10,  1850,  6221,
+          1288,    15,    80, 13811,  1103,    14,    40,  1153,  1157,   123,
+             7,  1877,  2878,    86,     4, 15478,    16,   528,    11,   752,
+           461,    11, 16971,     6,  3011,   482,    15,   550,   973,     7,
+          2914,    39,  2181,  6221,     6,    61,   531,    28,  2033,    30,
+            10,  1679,     4,     2]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])}
+summary_ids tensor([[    2,     0,   133, 12348,   818,  1819,    40,  2423,  3633,     9,
+             5,  1659,   641,    17,    27,    29,   292,    12,   180,   803,
+             9,  7126, 15478,     4, 15478,    16,   528,    11,   752,   461,
+            11, 16971,     6,  3011,   482,    15,   550,   973,     7,  2914,
+            39,  2181,  6221,     4,    20,   483,  3661,    15,     5,   446,
+          1540,    26,     5,  1857,   197,    45,    33,    57,   703,  3271,
+           150,  2648,    32,   202, 23371,   106,     4,     2]])
+summary The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea. The lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+INFO:     172.17.0.1:37180 - "POST /predict HTTP/1.1" 200 OK
+text A Justice Department spokesman stood by Garland’s previous comments, and the lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+
+The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden, which this week led to a proposed plea agreement on two misdemeanor charges that will probably allow him to avoid jail time. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea, which must be approved by a judge.
+preprocessing {'input_ids': tensor([[    0,   250,  1659,   641,  1565,  3359,    30, 22280,    17,    27,
+            29,   986,  1450,     6,     8,     5,   483,  3661,    15,     5,
+           446,  1540,    26,     5,  1857,   197,    45,    33,    57,   703,
+          3271,   150,  2648,    32,   202, 23371,   106,     4, 50118, 50118,
+           133, 12348,   818,  1819,    40,  2423,  3633,     9,     5,  1659,
+           641,    17,    27,    29,   292,    12,   180,   803,     9,  7126,
+         15478,     6,    61,    42,   186,   669,     7,    10,  1850,  6221,
+          1288,    15,    80, 13811,  1103,    14,    40,  1153,  1157,   123,
+             7,  1877,  2878,    86,     4, 15478,    16,   528,    11,   752,
+           461,    11, 16971,     6,  3011,   482,    15,   550,   973,     7,
+          2914,    39,  2181,  6221,     6,    61,   531,    28,  2033,    30,
+            10,  1679,     4,     2]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])}
+summary_ids tensor([[    2,     0,   133, 12348,   818,  1819,    40,  2423,  3633,     9,
+             5,  1659,   641,    17,    27,    29,   292,    12,   180,   803,
+             9,  7126, 15478,     4, 15478,    16,   528,    11,   752,   461,
+            11, 16971,     6,  3011,   482,    15,   550,   973,     7,  2914,
+            39,  2181,  6221,     4,    20,   483,  3661,    15,     5,   446,
+          1540,    26,     5,  1857,   197,    45,    33,    57,   703,  3271,
+           150,  2648,    32,   202, 23371,   106,     4,     2]])
+summary The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea. The lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+INFO:     172.17.0.1:49394 - "POST /predict HTTP/1.1" 200 OK
+text A Justice Department spokesman stood by Garland’s previous comments, and the lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+
+The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden, which this week led to a proposed plea agreement on two misdemeanor charges that will probably allow him to avoid jail time. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea, which must be approved by a judge.
+preprocessing {'input_ids': tensor([[    0,   250,  1659,   641,  1565,  3359,    30, 22280,    17,    27,
+            29,   986,  1450,     6,     8,     5,   483,  3661,    15,     5,
+           446,  1540,    26,     5,  1857,   197,    45,    33,    57,   703,
+          3271,   150,  2648,    32,   202, 23371,   106,     4, 50118, 50118,
+           133, 12348,   818,  1819,    40,  2423,  3633,     9,     5,  1659,
+           641,    17,    27,    29,   292,    12,   180,   803,     9,  7126,
+         15478,     6,    61,    42,   186,   669,     7,    10,  1850,  6221,
+          1288,    15,    80, 13811,  1103,    14,    40,  1153,  1157,   123,
+             7,  1877,  2878,    86,     4, 15478,    16,   528,    11,   752,
+           461,    11, 16971,     6,  3011,   482,    15,   550,   973,     7,
+          2914,    39,  2181,  6221,     6,    61,   531,    28,  2033,    30,
+            10,  1679,     4,     2]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])}
+summary_ids tensor([[    2,     0,   133, 12348,   818,  1819,    40,  2423,  3633,     9,
+             5,  1659,   641,    17,    27,    29,   292,    12,   180,   803,
+             9,  7126, 15478,     4, 15478,    16,   528,    11,   752,   461,
+            11, 16971,     6,  3011,   482,    15,   550,   973,     7,  2914,
+            39,  2181,  6221,     4,    20,   483,  3661,    15,     5,   446,
+          1540,    26,     5,  1857,   197,    45,    33,    57,   703,  3271,
+           150,  2648,    32,   202, 23371,   106,     4,     2]])
+summary The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea. The lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+INFO:     172.17.0.1:53118 - "POST /predict HTTP/1.1" 200 OK
+text A Justice Department spokesman stood by Garland’s previous comments, and the lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+
+The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden, which this week led to a proposed plea agreement on two misdemeanor charges that will probably allow him to avoid jail time. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea, which must be approved by a judge.
+preprocessing {'input_ids': tensor([[    0,   250,  1659,   641,  1565,  3359,    30, 22280,    17,    27,
+            29,   986,  1450,     6,     8,     5,   483,  3661,    15,     5,
+           446,  1540,    26,     5,  1857,   197,    45,    33,    57,   703,
+          3271,   150,  2648,    32,   202, 23371,   106,     4, 50118, 50118,
+           133, 12348,   818,  1819,    40,  2423,  3633,     9,     5,  1659,
+           641,    17,    27,    29,   292,    12,   180,   803,     9,  7126,
+         15478,     6,    61,    42,   186,   669,     7,    10,  1850,  6221,
+          1288,    15,    80, 13811,  1103,    14,    40,  1153,  1157,   123,
+             7,  1877,  2878,    86,     4, 15478,    16,   528,    11,   752,
+           461,    11, 16971,     6,  3011,   482,    15,   550,   973,     7,
+          2914,    39,  2181,  6221,     6,    61,   531,    28,  2033,    30,
+            10,  1679,     4,     2]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])}
+summary_ids tensor([[    2,     0,   133, 12348,   818,  1819,    40,  2423,  3633,     9,
+             5,  1659,   641,    17,    27,    29,   292,    12,   180,   803,
+             9,  7126, 15478,     4, 15478,    16,   528,    11,   752,   461,
+            11, 16971,     6,  3011,   482,    15,   550,   973,     7,  2914,
+            39,  2181,  6221,     4,    20,   483,  3661,    15,     5,   446,
+          1540,    26,     5,  1857,   197,    45,    33,    57,   703,  3271,
+           150,  2648,    32,   202, 23371,   106,     4,     2]])
+summary The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea. The lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+INFO:     172.17.0.1:33152 - "POST /predict HTTP/1.1" 200 OK
+text A Justice Department spokesman stood by Garland’s previous comments, and the lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+
+The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden, which this week led to a proposed plea agreement on two misdemeanor charges that will probably allow him to avoid jail time. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea, which must be approved by a judge.
+preprocessing {'input_ids': tensor([[    0,   250,  1659,   641,  1565,  3359,    30, 22280,    17,    27,
+            29,   986,  1450,     6,     8,     5,   483,  3661,    15,     5,
+           446,  1540,    26,     5,  1857,   197,    45,    33,    57,   703,
+          3271,   150,  2648,    32,   202, 23371,   106,     4, 50118, 50118,
+           133, 12348,   818,  1819,    40,  2423,  3633,     9,     5,  1659,
+           641,    17,    27,    29,   292,    12,   180,   803,     9,  7126,
+         15478,     6,    61,    42,   186,   669,     7,    10,  1850,  6221,
+          1288,    15,    80, 13811,  1103,    14,    40,  1153,  1157,   123,
+             7,  1877,  2878,    86,     4, 15478,    16,   528,    11,   752,
+           461,    11, 16971,     6,  3011,   482,    15,   550,   973,     7,
+          2914,    39,  2181,  6221,     6,    61,   531,    28,  2033,    30,
+            10,  1679,     4,     2]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])}
+summary_ids tensor([[    2,     0,   133, 12348,   818,  1819,    40,  2423,  3633,     9,
+             5,  1659,   641,    17,    27,    29,   292,    12,   180,   803,
+             9,  7126, 15478,     4, 15478,    16,   528,    11,   752,   461,
+            11, 16971,     6,  3011,   482,    15,   550,   973,     7,  2914,
+            39,  2181,  6221,     4,    20,   483,  3661,    15,     5,   446,
+          1540,    26,     5,  1857,   197,    45,    33,    57,   703,  3271,
+           150,  2648,    32,   202, 23371,   106,     4,     2]])
+summary The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea. The lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+INFO:     172.17.0.1:47732 - "POST /predict HTTP/1.1" 200 OK
+text A Justice Department spokesman stood by Garland’s previous comments, and the lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+
+The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden, which this week led to a proposed plea agreement on two misdemeanor charges that will probably allow him to avoid jail time. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea, which must be approved by a judge.
+preprocessing {'input_ids': tensor([[    0,   250,  1659,   641,  1565,  3359,    30, 22280,    17,    27,
+            29,   986,  1450,     6,     8,     5,   483,  3661,    15,     5,
+           446,  1540,    26,     5,  1857,   197,    45,    33,    57,   703,
+          3271,   150,  2648,    32,   202, 23371,   106,     4, 50118, 50118,
+           133, 12348,   818,  1819,    40,  2423,  3633,     9,     5,  1659,
+           641,    17,    27,    29,   292,    12,   180,   803,     9,  7126,
+         15478,     6,    61,    42,   186,   669,     7,    10,  1850,  6221,
+          1288,    15,    80, 13811,  1103,    14,    40,  1153,  1157,   123,
+             7,  1877,  2878,    86,     4, 15478,    16,   528,    11,   752,
+           461,    11, 16971,     6,  3011,   482,    15,   550,   973,     7,
+          2914,    39,  2181,  6221,     6,    61,   531,    28,  2033,    30,
+            10,  1679,     4,     2]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])}
+summary_ids tensor([[    2,     0,   133, 12348,   818,  1819,    40,  2423,  3633,     9,
+             5,  1659,   641,    17,    27,    29,   292,    12,   180,   803,
+             9,  7126, 15478,     4, 15478,    16,   528,    11,   752,   461,
+            11, 16971,     6,  3011,   482,    15,   550,   973,     7,  2914,
+            39,  2181,  6221,     4,    20,   483,  3661,    15,     5,   446,
+          1540,    26,     5,  1857,   197,    45,    33,    57,   703,  3271,
+           150,  2648,    32,   202, 23371,   106,     4,     2]])
+summary The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea. The lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+INFO:     172.17.0.1:52174 - "POST /predict HTTP/1.1" 200 OK
+text A Justice Department spokesman stood by Garland’s previous comments, and the lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+
+The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden, which this week led to a proposed plea agreement on two misdemeanor charges that will probably allow him to avoid jail time. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea, which must be approved by a judge.
+preprocessing {'input_ids': tensor([[    0,   250,  1659,   641,  1565,  3359,    30, 22280,    17,    27,
+            29,   986,  1450,     6,     8,     5,   483,  3661,    15,     5,
+           446,  1540,    26,     5,  1857,   197,    45,    33,    57,   703,
+          3271,   150,  2648,    32,   202, 23371,   106,     4, 50118, 50118,
+           133, 12348,   818,  1819,    40,  2423,  3633,     9,     5,  1659,
+           641,    17,    27,    29,   292,    12,   180,   803,     9,  7126,
+         15478,     6,    61,    42,   186,   669,     7,    10,  1850,  6221,
+          1288,    15,    80, 13811,  1103,    14,    40,  1153,  1157,   123,
+             7,  1877,  2878,    86,     4, 15478,    16,   528,    11,   752,
+           461,    11, 16971,     6,  3011,   482,    15,   550,   973,     7,
+          2914,    39,  2181,  6221,     6,    61,   531,    28,  2033,    30,
+            10,  1679,     4,     2]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])}
+summary_ids tensor([[    2,     0,   133, 12348,   818,  1819,    40,  2423,  3633,     9,
+             5,  1659,   641,    17,    27,    29,   292,    12,   180,   803,
+             9,  7126, 15478,     4, 15478,    16,   528,    11,   752,   461,
+            11, 16971,     6,  3011,   482,    15,   550,   973,     7,  2914,
+            39,  2181,  6221,     4,    20,   483,  3661,    15,     5,   446,
+          1540,    26,     5,  1857,   197,    45,    33,    57,   703,  3271,
+           150,  2648,    32,   202, 23371,   106,     4,     2]])
+summary The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea. The lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+INFO:     172.17.0.1:39138 - "POST /predict HTTP/1.1" 200 OK
+text A Justice Department spokesman stood by Garland’s previous comments, and the lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+
+The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden, which this week led to a proposed plea agreement on two misdemeanor charges that will probably allow him to avoid jail time. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea, which must be approved by a judge.
+preprocessing {'input_ids': tensor([[    0,   250,  1659,   641,  1565,  3359,    30, 22280,    17,    27,
+            29,   986,  1450,     6,     8,     5,   483,  3661,    15,     5,
+           446,  1540,    26,     5,  1857,   197,    45,    33,    57,   703,
+          3271,   150,  2648,    32,   202, 23371,   106,     4, 50118, 50118,
+           133, 12348,   818,  1819,    40,  2423,  3633,     9,     5,  1659,
+           641,    17,    27,    29,   292,    12,   180,   803,     9,  7126,
+         15478,     6,    61,    42,   186,   669,     7,    10,  1850,  6221,
+          1288,    15,    80, 13811,  1103,    14,    40,  1153,  1157,   123,
+             7,  1877,  2878,    86,     4, 15478,    16,   528,    11,   752,
+           461,    11, 16971,     6,  3011,   482,    15,   550,   973,     7,
+          2914,    39,  2181,  6221,     6,    61,   531,    28,  2033,    30,
+            10,  1679,     4,     2]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])}
+summary_ids tensor([[    2,     0,   133, 12348,   818,  1819,    40,  2423,  3633,     9,
+             5,  1659,   641,    17,    27,    29,   292,    12,   180,   803,
+             9,  7126, 15478,     4, 15478,    16,   528,    11,   752,   461,
+            11, 16971,     6,  3011,   482,    15,   550,   973,     7,  2914,
+            39,  2181,  6221,     4,    20,   483,  3661,    15,     5,   446,
+          1540,    26,     5,  1857,   197,    45,    33,    57,   703,  3271,
+           150,  2648,    32,   202, 23371,   106,     4,     2]])
+summary The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea. The lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+INFO:     172.17.0.1:37812 - "POST /predict HTTP/1.1" 200 OK
+text A Justice Department spokesman stood by Garland’s previous comments, and the lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+
+The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden, which this week led to a proposed plea agreement on two misdemeanor charges that will probably allow him to avoid jail time. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea, which must be approved by a judge.
+preprocessing {'input_ids': tensor([[    0,   250,  1659,   641,  1565,  3359,    30, 22280,    17,    27,
+            29,   986,  1450,     6,     8,     5,   483,  3661,    15,     5,
+           446,  1540,    26,     5,  1857,   197,    45,    33,    57,   703,
+          3271,   150,  2648,    32,   202, 23371,   106,     4, 50118, 50118,
+           133, 12348,   818,  1819,    40,  2423,  3633,     9,     5,  1659,
+           641,    17,    27,    29,   292,    12,   180,   803,     9,  7126,
+         15478,     6,    61,    42,   186,   669,     7,    10,  1850,  6221,
+          1288,    15,    80, 13811,  1103,    14,    40,  1153,  1157,   123,
+             7,  1877,  2878,    86,     4, 15478,    16,   528,    11,   752,
+           461,    11, 16971,     6,  3011,   482,    15,   550,   973,     7,
+          2914,    39,  2181,  6221,     6,    61,   531,    28,  2033,    30,
+            10,  1679,     4,     2]]), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]])}
+summary_ids tensor([[    2,     0,   133, 12348,   818,  1819,    40,  2423,  3633,     9,
+             5,  1659,   641,    17,    27,    29,   292,    12,   180,   803,
+             9,  7126, 15478,     4, 15478,    16,   528,    11,   752,   461,
+            11, 16971,     6,  3011,   482,    15,   550,   973,     7,  2914,
+            39,  2181,  6221,     4,    20,   483,  3661,    15,     5,   446,
+          1540,    26,     5,  1857,   197,    45,    33,    57,   703,  3271,
+           150,  2648,    32,   202, 23371,   106,     4,     2]])
+summary The transcript almost certainly will fuel criticism of the Justice Department’s five-year investigation of Hunter Biden. Biden is due in federal court in Wilmington, Del., on July 26 to enter his guilty plea. The lead Democrat on the House committee said the allegations should not have been released publicly while lawmakers are still vetting them.
+INFO:     172.17.0.1:55096 - "POST /predict HTTP/1.1" 200 OK
+

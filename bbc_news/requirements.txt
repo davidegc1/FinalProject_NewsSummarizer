@@ -1,0 +1,9 @@
+transformers
+boto3
+pandas
+streamlit
+sklearn
+torch
+uvicorn
+# fastapi
+# FastAPI
